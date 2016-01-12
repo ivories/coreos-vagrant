@@ -1,5 +1,8 @@
+# coding: utf-8
 # -*- mode: ruby -*-
 # # vi: set ft=ruby :
+# 如果每次VAGRANT RESUME的时候服务关闭需要在COREOS里面设定 sudo "vm.overcommit_memory = 1" >> /etc/sysctl.conf
+# !!!一定注意请不要在SHARED_FOLDERS里面有ln -s 之类的指向,很容易出现把数据清空
 
 require 'fileutils'
 
@@ -18,8 +21,7 @@ $share_home = false
 $vm_gui = false
 $vm_memory = 1024
 $vm_cpus = 1
-$shared_folders = {"/data0/data"=>"/home/core/data","/data0/docker"=>"/home/core/docker"}
-# $shared_folders = {"/data0/docker"=>"/home/core/docker"}
+$shared_folders = {"/data0/data"=>"/home/core/data"}
 $forwarded_ports = {} #80=>80
 
 # Attempt to apply the deprecated environment variable NUM_INSTANCES to
@@ -124,18 +126,10 @@ Vagrant.configure("2") do |config|
       ip = "172.17.8.#{i+100}"
       config.vm.network :private_network, ip: ip
 
-      #config.vm.synced_folder "/data0/docker", "/home/core/docker", type: "nfs"
-      #config.bindfs.bind_folder "/data0/docker", "/home/core/docker"
       # Uncomment below to enable NFS for sharing the host machine into the coreos-vagrant VM.
       $shared_folders.each_with_index do |(host_folder, guest_folder), index|
-#        config.vm.synced_folder host_folder.to_s, guest_folder.to_s, id: "core-share%02d" % index, nfs: true, mount_options: ['nolock,vers=3,udp']
-        # config.vm.synced_folder host_folder.to_s, guest_folder.to_s, id: "core-share%02d" % index, nfs: true, group: 113, mount_options: ['nolock,noatime']
-        #, bsd__nfs_options: ["no_root_squash", "rw", "no_subtree_check"]
-        # config.vm.synced_folder host_folder.to_s, guest_folder.to_s, type: "rsync", rsync__auto: true
-        config.vm.synced_folder(host_folder.to_s, guest_folder.to_s,
-                                :nfs => true,
-                                :map_uid => 0,
-                                :map_gid => 0)
+        # config.vm.synced_folder host_folder.to_s, guest_folder.to_s, type: "smb", mount_options: ["username=USERNAME","password=PASSWORD"]
+        config.vm.synced_folder(host_folder.to_s, guest_folder.to_s, mount_options: ['nolock,vers=3,tcp'], :nfs => true, :map_uid => 0, :map_gid => 0)
       end
 
       if $share_home
