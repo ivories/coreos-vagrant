@@ -3,6 +3,7 @@
 # # vi: set ft=ruby :
 # 如果每次VAGRANT RESUME的时候服务关闭需要在COREOS里面设定 sudo "vm.overcommit_memory = 1" >> /etc/sysctl.conf
 # !!!一定注意请不要在SHARED_FOLDERS里面有ln -s 之类的指向,很容易出现把数据清空
+# shared_folders 必须使用NFS的TCP来连接,非常会有D之类的挂起进程
 
 require 'fileutils'
 
