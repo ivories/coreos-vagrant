@@ -51,3 +51,12 @@ sudo defaults write com.apple.loginwindow LogoutHook /data0/coreos/coreclose.sh
 cp -rfp /data0/coreos/coreopen.sh /usr/local/bin/web
 web
 ```
+
+## ERROR handle
+
+1) VM must be created before running this command. Run `vagrant up` first.
+
+!!!do not run vagrant up. you will destroy your old image.
+
+You must backup ~/VirtualBox\ VMs/  old vbox file
+When you vagrant up new virtual box then copy the old file to new file
