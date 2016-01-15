@@ -8,22 +8,22 @@ git clone https://github.com/ivories/coreos-vagrant.git coreos
 cd coreos
 ```
 ## first run
-###if Virtual box:
+####if Virtual box:
 ```
 vagrant up
 ```
 
-###if VMware Fusion:
+####if VMware Fusion:
 ```
 vagrant up --provider vmware_fusion
 ```
 
-###if VMware Workstation:
+####if VMware Workstation:
 ```
 vagrant up --provider vmware_workstation
 ```
 
-###ssh coreos
+####ssh coreos
 ```
 vagrant ssh
 ```
@@ -31,9 +31,13 @@ vagrant ssh
 ## suspend coreos
 
 You must edit /data0/coreos/coreclose.sh first
+
 change your login username
+
 su - YourLoginUsername -c "export PATH=\"/Applications/VirtualBox.app/Contents/MacOS:$PATH\" && cd /data0/coreos-vagrant && /usr/local/bin/vagrant suspend"
+
 example:
+
 su - ivories -c "export PATH=\"/Applications/VirtualBox.app/Contents/MacOS:$PATH\" && cd /data0/coreos-vagrant && /usr/local/bin/vagrant suspend"
 
 ```
