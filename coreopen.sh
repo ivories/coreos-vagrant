@@ -1,2 +1,3 @@
-cd /data0/coreos-vagrant
+#! /bin/bash
+cd /data0/coreos
 vagrant resume
