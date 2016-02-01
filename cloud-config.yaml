@@ -1,0 +1,30 @@
+#cloud-config
+
+hostname: coreos01
+
+coreos:
+  etcd:
+    addr: $private_ipv4:4001
+    peer-addr: $private_ipv4:7001
+  units:
+    - name: etcd2.service
+      command: start
+    - name: fleet.service
+      command: start
+    - name: static.network
+      content: |
+        [Match]
+        Name=e*
+
+        [Network]
+        Address=172.0.0.50/24
+        Gateway=172.0.0.254
+        DNS=192.168.1.253
+users:
+  - name: core
+    ssh-authorized-keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAABIwAAAQEAya71SQJPVR/td5blMaKaeu0o958DSI31/eCDKCMi27xjodUtWTAfa2ofFtMRbfWlng8IzY5PAenyV06/aEDsjJ+CzeXp0QD4cy1faFQD+375DT8o219ceWvshmduUwJCU/NZfxw8pCso8ofQl8zbe3aiq9YM9UElHKkOmvg9i7pQc7vjApRPNCcKAYfWc1OpTEj79/yaMnuPkXQD/HecKFpmeZJ/LkIwq8d6VRHQMiTUvcmJcBp/t570q2h4n/c/B61nEJ4QygfSk2HM25buqKQP59bLILLIvxmMIfySsKHBgZim9lED5lqUB6WJk11ZBQLww+18bKEl4F1j6iTLyw==
+
+  - groups:
+      - sudo
+      - docker

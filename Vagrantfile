@@ -15,15 +15,16 @@ CONFIG = File.join(File.dirname(__FILE__), "config.rb")
 # Defaults for config options defined in CONFIG
 $num_instances = 1
 $instance_name_prefix = "core"
-$update_channel = "alpha"
+$update_channel = "stable"
 $image_version = "current"
 $enable_serial_logging = false
 $share_home = false
 $vm_gui = false
 $vm_memory = 1024
 $vm_cpus = 1
-$shared_folders = {"/data0/data"=>"/home/core/data"}
+$shared_folders = {"/data0/data"=>"/home/core/data","/data0/docker"=>"/home/core/docker"}
 $forwarded_ports = {} #80=>80
+# $public_ip = "192.168.1.208"
 
 # Attempt to apply the deprecated environment variable NUM_INSTANCES to
 # $num_instances while allowing config.rb to override it
@@ -127,10 +128,19 @@ Vagrant.configure("2") do |config|
       ip = "172.17.8.#{i+100}"
       config.vm.network :private_network, ip: ip
 
+      # if $public_ip
+      #   config.vm.network :public_network, ip: "${public_ip}"
+      # end
+
       # Uncomment below to enable NFS for sharing the host machine into the coreos-vagrant VM.
       $shared_folders.each_with_index do |(host_folder, guest_folder), index|
-        # config.vm.synced_folder host_folder.to_s, guest_folder.to_s, type: "smb", mount_options: ["username=USERNAME","password=PASSWORD"]
+
+        #for windows
+        #config.vm.synced_folder host_folder.to_s, guest_folder.to_s, type: "smb",smb_username:"USERNAME",smb_password:"PASSWORD",mount_options: ["username=USERNAME","password=PASSWORD"],:map_uid => 0,:map_gid => 0
+
+        #for unix/linux
         config.vm.synced_folder(host_folder.to_s, guest_folder.to_s, mount_options: ['nolock,vers=3,tcp'], :nfs => true, :map_uid => 0, :map_gid => 0)
+
       end
 
       if $share_home

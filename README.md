@@ -15,11 +15,13 @@ vagrant up
 
 ####if VMware Fusion:
 ```
+vagrant plugin install vagrant-vmware-fusion
 vagrant up --provider vmware_fusion
 ```
 
 ####if VMware Workstation:
 ```
+vagrant plugin install vagrant-vmware-workstation
 vagrant up --provider vmware_workstation
 ```
 
