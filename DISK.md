@@ -4,14 +4,14 @@
 
 ### 制作启动U盘
 * 下载 ultraiso : https://www.ezbsystems.com/ultraiso/download.htm
-* 下载 coreos iso : https://coreos.com/os/docs/latest/booting-with-iso.html
+* 下载 coreos iso : https://stable.release.core-os.net/amd64-usr/current/coreos_production_iso_image.iso
 * 双击 coreos iso , 自动运行 ultraiso , 点击菜单: 启动->写入硬盘映像->选择硬盘驱动为U盘->写入
 
 ### 复制四个文件进入U盘
 * 下载 coreos cinstall : https://raw.githubusercontent.com/ivories/coreos-vagrant/master/cinstall
 * 下载 coreos cinstall : https://raw.githubusercontent.com/ivories/coreos-vagrant/master/cloud-config.yaml
-* 下载 coreos image : http://stable.release.core-os.net/amd64-usr/835.11.0/coreos_production_image.bin.bz2
-* 下载 coreos image.sig : http://stable.release.core-os.net/amd64-usr/835.11.0/coreos_production_image.bin.bz2.sig
+* 下载 coreos image : http://stable.release.core-os.net/amd64-usr/1298.6.0/coreos_production_image.bin.bz2
+* 下载 coreos image.sig : http://stable.release.core-os.net/amd64-usr/1298.6.0/coreos_production_image.bin.bz2.sig
 * cinstall cloud-config.yaml coreos_production_image.bin.bz2 coreos_production_image.bin.bz2.sig 四个文件复制到U盘
 
 ## 服务器要操作的内容
