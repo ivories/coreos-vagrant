@@ -9,7 +9,7 @@ coreos:
 
 users:
   - name: core
-    passwd：1bUErPU7EQxzo
+    passwd: 1bUErPU7EQxzo
 
   - groups:
       - sudo
