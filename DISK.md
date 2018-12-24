@@ -37,3 +37,14 @@ cd /mnt/udisk
 sudo ./cinstall
 sudo reboot
 ```
+
+
+# install on efi notebook
+
+- I simply used the ubuntu-iso image (booted from usb) using the live-mode.
+- following the instructions from https://coreos.com/os/docs/latest/installing-to-disk.html
+- download https://raw.githubusercontent.com/coreos/init/master/bin/coreos-install
+- installed gawk on ubuntu: sudo apt-get install gawk
+- executed: coreos-install -d /dev/mmcblk1 -C alpha
+- executed efibootmgr to add uefi boot-option: sudo efibootmgr --create --disk /dev/mmcblk1 --part 1 --label "COREOS" --loader \\EFI\\boot\\grub.efi
+- rebooted into COREOS
